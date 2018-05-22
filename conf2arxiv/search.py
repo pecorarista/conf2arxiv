@@ -21,11 +21,11 @@ class ArXivPaper:
 
 
 def parse_api_result(api_result: Dict[str, Any]) -> ArXivPaper:
-    title = api_result.get('title')
-    authors = api_result.get('authors')
-    uri = [link for link in api_result.get('links', [])
-           if link.get('type') == 'text/html']
-    return ArXivPaper(title, authors, uri)
+    title = api_result['title']
+    authors = api_result.get('authors', [])
+    uri = [link['href'] for link in api_result['links']
+           if link['type'] == 'text/html']
+    return ArXivPaper(title, authors, uri[0])
 
 
 def search_arxiv(title: str, authors: List[str]=[]) -> Union[None, ArXivPaper]:
@@ -57,7 +57,7 @@ def search_arxiv(title: str, authors: List[str]=[]) -> Union[None, ArXivPaper]:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(prog='conf2arxiv')
     parser.add_argument('json_path',
                         type=str,
                         help='[{title: str, authors: [str]}]')
