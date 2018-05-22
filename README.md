@@ -14,7 +14,7 @@ pip install -r requirements.txt
 ## Usage
 
 ```
-usage: conf2arxiv [-h] json_path csv_dest
+usage: conf2arxiv json_path csv_dest
 
 positional arguments:
   json_path   [{title: str, authors: [str]}]
