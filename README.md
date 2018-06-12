@@ -16,3 +16,9 @@ pip install -r requirements.txt
 ```
 python -m conf2arxiv acl2018
 ```
+
+## Test
+
+```
+python -m unittest
+```

@@ -1,4 +1,5 @@
 from typing import List
+import re
 
 
 def stringify_authors(authors: List[str]) -> str:
@@ -12,8 +13,8 @@ def stringify_authors(authors: List[str]) -> str:
         return ', '.join(authors[:-1]) + ', and ' + authors[-1]
 
 
-def _trim(s: str) -> bool:
-    return s.strip().lower().replace('\n', ' ').replace('  ', ' ')
+def _trim(s: str) -> str:
+    return re.sub(r'\s{2,}', ' ', s.strip().lower())
 
 
 def same(s1: str, s2: str) -> bool:

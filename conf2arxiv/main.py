@@ -16,17 +16,19 @@ def main() -> None:
     parser = argparse.ArgumentParser(prog='conf2arxiv')
     parser.add_argument('conference', type=str, choices=['acl2018'])
     args = parser.parse_args()
+    output_dir = Path('output')
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    dest_html = Path('output') / Path(args.conference + '.html')
+    dest_html = output_dir / Path(args.conference + '.html')
     fetch_web_page(args.conference, dest_html)
 
-    dest_json = Path('output') / Path(args.conference + '.json')
+    dest_json = output_dir / Path(args.conference + '.json')
     if dest_json.is_file():
-        with Path(dest_json).open(mode='r') as r:
+        with dest_json.open(mode='r') as r:
             entries = json.load(r)
     else:
         entries = parse_html(dest_html)
-        with Path(dest_json).open(mode='w') as w:
+        with dest_json.open(mode='w') as w:
             json.dump(entries, w, ensure_ascii=False, indent=True)
 
     results = []
@@ -37,7 +39,7 @@ def main() -> None:
         if arxiv_paper is not None:
             results.append((title, authors, arxiv_paper))
 
-    dest_csv = Path('output') / Path(args.conference + '.csv')
+    dest_csv = output_dir / Path(args.conference + '.csv')
     dest_csv.parent.mkdir(parents=True, exist_ok=True)
 
     with dest_csv.open(mode='w') as w:
@@ -46,7 +48,7 @@ def main() -> None:
                   'url found',
                   'title found',
                   'authors found']
-        writer = csv.writer(w, delimiter=',', quoting=csv.QUOTE_ALL)
+        writer = csv.writer(w, delimiter='\t')
         writer.writerow(HEADER)
         for (title, authors, arxiv_paper) in results:
             str_authors = stringify_authors(authors)
