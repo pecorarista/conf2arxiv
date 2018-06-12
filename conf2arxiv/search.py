@@ -58,12 +58,7 @@ def search_arxiv(title: str, authors: List[str]=[]) -> Union[None, ArXivPaper]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(prog='conf2arxiv')
-    parser.add_argument('json_path',
-                        type=str,
-                        help='[{title: str, authors: [str]}]')
-    parser.add_argument('csv_dest',
-                        type=str,
-                        help='dest where the result is saved')
+    parser.add_argument('conference', type=str, choices=['acl2018'])
     args = parser.parse_args()
 
     with Path(args.json_path).open(mode='r') as f:

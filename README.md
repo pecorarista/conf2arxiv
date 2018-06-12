@@ -14,14 +14,5 @@ pip install -r requirements.txt
 ## Usage
 
 ```
-usage: conf2arxiv json_path csv_dest
-
-positional arguments:
-  json_path   [{title: str, authors: [str]}]
-  csv_dest    dest where the result is saved
-```
-
-For example
-```sh
-python -m conf2arxiv resource/example.json output/result.csv
+python -m conf2arxiv acl2018
 ```
