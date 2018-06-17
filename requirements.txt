@@ -1,3 +1,5 @@
 arxiv
 python-Levenshtein
 tqdm
+beautifulsoup4
+html5lib
